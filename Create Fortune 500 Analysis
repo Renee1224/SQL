@@ -79,6 +79,20 @@ GROUP BY industry
 HAVING avg_revenue_billions>=200
 ;
 
+# Which company in Technology industry has revenue maximum of $400 Billon? 
+SELECT company_name, industry, ROUND(MAX(revenue),1)
+FROM fortune_companies
+WHERE industry='Technology'
+GROUP BY company_name
+HAVING MAX(revenue)>=400 
+;
+
+# What is total revenue of the Apple Inc. company?
+SELECT company_name, industry, SUM(revenue)
+FROM fortune_companies
+WHERE company_name='Apple Inc.'
+;
+
 # Which companies have healthcare benefits *and* at least 20 paid time off days?
 SELECT company_name
 FROM fortune_companies
@@ -91,3 +105,15 @@ SELECT company_name, min(revenue)
 FROM fortune_companies
 WHERE industry = 'Retail'
 ;
+
+# Which company has the most revenue, and what's their revenue and industry? 
+SELECT company_name, industry, MAX(revenue) 
+FROM fortune_companies
+;
+
+# Which company in Finance industry has the most paid_time off days and the most maternity leave weeks? 
+SELECT company_name, industry, MAX(paid_time_off_days), MAX(maternity_leave_weeks)
+FROM fortune_companies
+WHERE industry='Finance'
+;
+
