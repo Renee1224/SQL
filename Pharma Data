@@ -1,64 +1,78 @@
-# 
+#This analysis utilized the following Pharma dataset:
 
-CREATE TABLE fortune_companies (
-    company_id INTEGER PRIMARY KEY,
-    company_name TEXT,
-    industry TEXT,
-    revenue REAL,
-    employees INTEGER,
-    healthcare_benefits BIT,
-    paid_time_off_days INTEGER,
-    maternity_leave_weeks INTEGER,
-    avg_employee_tenure REAL
+CREATE TABLE prescriptions (
+    person_ID INTEGER,
+    geo TEXT,
+    doctor_name TEXT,
+    date_filled DATE,
+    active TEXT
 );
 
-INSERT INTO fortune_companies (company_name, industry, revenue, employees, healthcare_benefits, paid_time_off_days, maternity_leave_weeks, avg_employee_tenure)
+CREATE TABLE medication (
+    person_ID INTEGER,
+    medication_name TEXT,
+    prescription_id INTEGER
+);
+
+INSERT INTO prescriptions (person_ID, geo, doctor_name, date_filled, active)
 VALUES
-    ('Apple Inc.', 'Technology', 365.7, 147000, 1, 20, 12, 4.5),
-    ('Walmart Inc.', 'Retail', 523.96, 2200000, 1, 15, 8, 6.2),
-    ('Exxon Mobil Corporation', 'Energy', 265.01, 72000, 0, 18, 6, 7.8),
-    ('Amazon.com Inc.', 'Technology', 386.06, 1370000, 1, 22, 14, 5.1),
-    ('JPMorgan Chase & Co.', 'Financials', 160.1, 255998, 1, 21, 12, 6.9),
-    ('Verizon Communications Inc.', 'Telecommunications', 131.88, 132600, 0, 15, 6, 5.5),
-    ('Company A', 'Retail', 235.4, 2000, 1, 18, 10, 5.8),
-    ('Company B', 'Healthcare', 400.7, 2300, 1, 22, 13, 5.7),
-    ('Company C', 'Manufacturing', 300.2, 2000, 1, 18, 10, 5.8),
-    ('Company D', 'Healthcare', 150.5, 3500, 1, 20, 12, 6.5),
-    ('Company E', 'Finance', 280.7, 1800, 0, 14, 8, 4.2),
-    ('Company F', 'Technology', 420.1, 2500, 1, 22, 14, 7.1),
-    ('Company G', 'Retail', 190.8, 1500, 1, 16, 9, 5.3),
-    ('Company H', 'Energy', 280.5, 2200, 0, 15, 8, 6.8),
-    ('Company I', 'Telecommunications', 110.3, 1800, 1, 19, 11, 4.9),
-    ('Company J', 'Manufacturing', 390.6, 2700, 1, 21, 13, 6.2),
-    ('Company K', 'Healthcare', 180.2, 3200, 1, 17, 9, 7.4),
-    ('Company L', 'Finance', 230.4, 1900, 0, 13, 7, 5.6),
-    ('Company M', 'Technology', 340.9, 2800, 1, 23, 15, 6.9),
-    ('Company N', 'Retail', 200.6, 1600, 1, 15, 8, 4.7),
-    ('Company O', 'Energy', 260.2, 2400, 0, 14, 7, 6.1),
-    ('Company P', 'Telecommunications', 130.5, 2100, 1, 20, 12, 5.3),
-    ('Company Q', 'Manufacturing', 360.0, 2900, 1, 22, 14, 7.8),
-    ('Company R', 'Technology', 400.7, 2300, 1, 22, 13, 5.7),
-    ('Company S', 'Retail', 210.8, 1600, 0, 16, 9, 4.9),
-    ('Company T', 'Energy', 290.5, 2200, 1, 15, 8, 7.2),
-    ('Company U', 'Telecommunications', 140.3, 1900, 1, 20, 12, 6.1),
-    ('Company V', 'Manufacturing', 350.6, 2800, 1, 22, 14, 5.4),
-    ('Company W', 'Healthcare', 160.2, 3300, 0, 18, 10, 4.8),
-    ('Company X', 'Finance', 240.4, 2000, 1, 13, 7, 7.1),
-    ('Company Y', 'Technology', 320.9, 2700, 1, 23, 15, 5.6),
-    ('Company Z', 'Retail', 180.6, 1400, 0, 14, 8, 6.3),
-    ('Company AA', 'Energy', 240.2, 2600, 1, 17, 9, 6.5),
-    ('Company BB', 'Telecommunications', 120.5, 2100, 0, 19, 11, 4.5),
-    ('Company CC', 'Manufacturing', 380.0, 3000, 1, 21, 13, 7.3),
-    ('Company DD', 'Healthcare', 170.2, 3200, 1, 17, 9, 5.8),
-    ('Company EE', 'Finance', 250.4, 1900, 0, 12, 6, 6.4),
-    ('Company FF', 'Technology', 300.9, 2500, 1, 24, 16, 6.9),
-    ('Company GG', 'Retail', 190.6, 1700, 0, 13, 7, 5.2),
-    ('Company HH', 'Energy', 280.2, 2300, 1, 16, 9, 6.8),
-    ('Company II', 'Telecommunications', 110.5, 2000, 1, 21, 12, 4.9),
-    ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
-    ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
+    (1, '90210', 'Dr. Smith', '2024-01-10', 'Y'),
+    (2, '30301', 'Dr. Johnson', '2022-11-25', 'N'),
+    (3, '10001', 'Dr. Davis', '2023-02-05', 'Y'),
+    (4, '60601', 'Dr. Patel', '2022-12-15', 'Y'),
+    (5, '75201', 'Dr. Garcia', '2023-01-30', 'Y'),
+    (6, '90210', 'Dr. Smith', '2023-04-15', 'Y'),
+    (7, '30301', 'Dr. Johnson', '2023-04-16', 'Y'),
+    (8, '10001', 'Dr. Davis', '2023-04-17', 'Y'),
+    (9, '60601', 'Dr. Patel', '2023-04-18', 'Y'),
+    (10, '75201', 'Dr. Garcia', '2023-04-19', 'Y'),
+    (11, '90210', 'Dr. Smith', '2023-04-20', 'Y'),
+    (12, '30301', 'Dr. Johnson', '2023-04-21', 'Y'),
+    (13, '10001', 'Dr. Davis', '2023-04-22', 'N'),
+    (14, '60601', 'Dr. Patel', '2023-04-23', 'Y'),
+    (15, '75201', 'Dr. Garcia', '2023-04-24', 'Y'),
+    (16, '90210', 'Dr. Smith', '2023-04-25', 'N'),
+    (17, '30301', 'Dr. Johnson', '2023-04-26', 'Y'),
+    (18, '10001', 'Dr. Davis', '2023-04-27', 'Y'),
+    (19, '60601', 'Dr. Patel', '2023-04-28', 'N'),
+    (20, '75201', 'Dr. Garcia', '2023-04-29', 'Y'),
+    (21, '90210', 'Dr. Smith', '2023-04-30', 'N'),
+    (22, '30301', 'Dr. Johnson', '2023-05-01', 'Y'),
+    (23, '10001', 'Dr. Davis', '2023-05-02', 'Y'),
+    (24, '60601', 'Dr. Patel', '2024-01-24', 'Y'),
+    (25, '75201', 'Dr. Garcia', '2023-05-04', 'Y');
 
 
+INSERT INTO medication (person_ID, medication_name, prescription_id)
+VALUES
+    (1, 'Teamocil', 12345678),
+    (2, 'Peppy Bismilk', 23456789),
+    (3, 'Xanatab', 34567890),
+    (4, 'Zonkify', 45678901),
+    (5, 'Floopoxetine', 56789012),
+    (6, 'Teamocil', 43890775),
+    (7, 'Glumara', 78901234),
+    (8, 'Xanatab', 89012345),
+    (9, 'Zonkify', 90123456),
+    (10, 'Floopoxetine', 31346578),
+    (11, 'Zonkify', 46456798),
+    (12, 'Xanatab', 67567809),
+    (13, 'Teamocil', 54678911),
+    (14, 'Peppy Bismilk', 21789021),
+    (15, 'Zonkify', 76890132),
+    (16, 'Peppy Bismilk', 26901234),
+    (17, 'Floopoxetine', 84212345),
+    (18, 'Floopoxetine', 36323456),
+    (19, 'Floopoxetine', 23345678),
+    (20, 'Xanatab', 63896789),
+    (21, 'Zonkify', 25237890),
+    (22, 'Peppy Bismilk', 14678901),
+    (23, 'Zonkify', 85789012),
+    (24, 'Teamocil', 42890123),
+    (25, 'Glumara', 13901234);
+
+
+# Analysis: 
 
 # Which medications has Dr. Garcia prescribed?
 
@@ -85,7 +99,7 @@ FROM prescriptions scripts
 INNER JOIN medication med
 ON scripts.person_ID=med.person_ID
 WHERE med.medication_name='Zonkify'
-ORDER BY scripts.date_filled asc
+ORDER BY scripts.date_filled desc
 LIMIT 1 
 ;
 
